@@ -78,8 +78,8 @@ public class Panel extends JPanel{
         super.paintComponent(graphics);
         graphics.drawImage(this.backGround,0,0,Constants.WIDTH,Constants.HEIGHT,null);
         graphics.drawImage(this.versusLogo,Constants.VERSUS_X+Constants.VERSUS_SPACING,Constants.VERSUS_Y,null);
-        graphics.drawImage(this.real,this.homeTeam.getX(),this.homeTeam.getY()-100,300,200,null);
-        graphics.drawImage(this.barcelona,this.awayTeam.getX(),this.awayTeam.getY()-100,300,200,null);
+        graphics.drawImage(this.real,this.homeTeam.getX(),this.homeTeam.getY()-100,200,200,null);
+        graphics.drawImage(this.barcelona,this.awayTeam.getX(),this.awayTeam.getY()-100,200,200,null);
     }
 
     public void readImages(){
