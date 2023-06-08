@@ -29,7 +29,7 @@ public class Utils {
     }
 
 
-    public void sleep(int sleep){
+    public static void sleep(int sleep){
         try {
             Thread.sleep(sleep);
         }catch (Exception e){

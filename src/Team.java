@@ -7,6 +7,11 @@ import java.util.List;
 public class Team  {
     private int id;
     private static int counter=0;
+
+    public String getName() {
+        return name;
+    }
+
     private String name;
     private List<Player> players;
     private BufferedImage teamIcon;

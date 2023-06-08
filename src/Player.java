@@ -15,7 +15,9 @@ public class Player{
         counter++;
         this.id=counter;
     }
-
+   public String getName(){
+        return this.firstName+" "+this.lastName;
+   }
     private void setPlayerName() {
         Random random = new Random();
         this.firstName = Constants.FIRST_NAMES[random.nextInt(0,32)];
