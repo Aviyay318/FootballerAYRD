@@ -10,6 +10,7 @@ public class LeagueManager {
     private List<Team> teams;
     private List<Match> matches;
     private List<Team> leagueTable;
+    private List<Match> tempMatches;
 
     public LeagueManager() {
         this.teams = createTeam();
@@ -89,17 +90,17 @@ public class LeagueManager {
 
 
     public  boolean playGame (Random random, Scanner scanner) {
-        if (this.matches.isEmpty()) {
+        if (this.tempMatches.isEmpty()) {
             return true; // Game over condition
         }
 
         List<Match> newMatches = IntStream.range(0, 5)
-                .mapToObj(i -> random.nextInt(this.matches.size()))
+                .mapToObj(i -> random.nextInt(this.tempMatches.size()))
                 .distinct()
-                .map(this.matches::get)
+                .map(this.tempMatches::get)
                 .collect(Collectors.toList());
 
-        this.matches = this.matches.stream()
+        this.tempMatches = this.tempMatches.stream()
                 .filter(match -> !newMatches.contains(match))
                 .collect(Collectors.toList());
 
@@ -153,7 +154,7 @@ public class LeagueManager {
     public void startGame(List<Match> matches){
         Random random = new Random();
         int counter = 5;
-        for (Match match : matches) {
+        for (Match match : roundMatches) {
             System.out.println("Round number: "+counter);
             counter--;
             System.out.println("Match between " + match.getHomeTeam().getName() + " and " + match.getAwayTeam().getName());
@@ -166,6 +167,9 @@ public class LeagueManager {
             int homeTeamScore = random.nextInt(4);
             int awayTeamScore = random.nextInt(4);
             match.setGoals(homeTeamScore, awayTeamScore);
+            System.out.println("%%%%%%%%%%");
+            System.out.println(match.getGoals());
+            System.out.println("%%%%%%%%%%");
             System.out.println("Match result: " + match.getHomeTeam().getName() + " " + homeTeamScore + " - " + awayTeamScore + " " + match.getAwayTeam().getName());
             System.out.println("Goals:");
 
