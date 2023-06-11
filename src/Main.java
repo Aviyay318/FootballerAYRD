@@ -11,6 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        //new Window();
         LeagueManager leagueManager = new LeagueManager();
         Random random = new Random();
         boolean gameOver = leagueManager.playGame(random, scanner);
