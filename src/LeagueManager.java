@@ -27,7 +27,7 @@ public class LeagueManager {
 
 
    private void createLeagueTable(){
-       System.out.println(findMatchesByTeam(this.teams.size()));
+       System.out.println(findTopScoringTeams(this.teams.size()));
    }
 
     //1

@@ -65,7 +65,7 @@ public class Team  {
 
     @Override
     public String toString() {
-       return  "Id: "+this.id+" "+"Team Name: " + name ;
+       return  "Id: "+this.id+" "+"Team Name: " + name +"\n";
     }
 
 
