@@ -15,7 +15,7 @@ public class LeagueManager {
         this.teams = createTeam();
         this.matches = matchTeams();
         this.leagueTable = new ArrayList<>();
-        //startGame();
+
 
     }
     public  List<Team> createTeam(){

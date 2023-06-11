@@ -62,8 +62,8 @@ public class Match {
     public String toString() {
         return "Match{" +
                 "id=" + id +
-                ", homeTeam=" + this.homeTeam +
-                ", awayTeam=" + this.awayTeam +
+                ", homeTeam=" + homeTeam +
+                ", awayTeam=" + awayTeam +
                 ", goals=" + this.goals +
                 '}'+"\n";
     }
