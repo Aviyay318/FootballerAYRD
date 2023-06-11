@@ -102,12 +102,11 @@ public class LeagueManager {
         createLeagueTable();
         System.out.println(Constants.MENU);;
         System.out.println("Choose an option: ");
-        int choice = getInputInRange(scanner, 1, 6);
-        outcome(choice);
+        outcome();
         return playGame(random, scanner);
     }
 
-    private void outcome(int choice) {
+    private void outcome() {
         Scanner scanner = new Scanner(System.in);
         int userChoice;
         boolean endMenu =false;
@@ -175,12 +174,6 @@ public class LeagueManager {
         }
 
     }
-
-
-
-
-
-
     public int getInputInRange(Scanner scanner, int min, int max) {
         return IntStream.generate(() -> {
                     System.out.println("Enter a number 1-6:");
