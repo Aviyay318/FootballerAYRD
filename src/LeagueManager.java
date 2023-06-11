@@ -14,9 +14,21 @@ public class LeagueManager {
     public LeagueManager() {
         this.teams = Utils.createTeam();
         this.matches = matchTeams();
-        startGame();
+        //startGame();
 
     }
+
+
+
+
+
+
+
+
+
+   private void createLeagueTable(){
+       System.out.println(findMatchesByTeam(this.teams.size()));
+   }
 
     //1
     public List<Match> findMatchesByTeam(int teamId) {
@@ -60,43 +72,6 @@ public class LeagueManager {
 
     }
 
-//    כל משחק יימשך 10 שניות. בתחילה יודפס על המסך מיהן הקבוצות המתמודדות, ולאחר מכן ספירה לאחור של 10 שניות, שבסיומה תוצאת המשחק תקבע באופן אקראי.
-//    התוצאות יאוחסנו באובייקט מהמחלקה Match.
-//    כל שער שיובקע יתועד יחד עם הדקה שבה הובקע השער והשחקן שכבש את השער. מיד לאחר הגרלת התוצאה, התוצאה תוצג על המסך.
-
-
-
-    public void startGame(){
-        Random random = new Random();
-
-        for (Match match : this.matches) {
-            System.out.println("Match between " + match.getHomeTeam().getName() + " and " + match.getAwayTeam().getName());
-            IntStream.iterate(10, i -> i - 1)
-                    .limit(10)
-                    .forEach(num -> {
-                        System.out.println(num);
-            Utils.sleep(1000);
-                    });
-            int homeTeamScore = random.nextInt(4);
-            int awayTeamScore = random.nextInt(4);
-            match.setGoals(homeTeamScore, awayTeamScore);
-
-            System.out.println("Match result: " + match.getHomeTeam().getName() + " " + homeTeamScore + " - " + awayTeamScore + " " + match.getAwayTeam().getName());
-            System.out.println("Goals:");
-
-            for (Goal goal : match.getGoals()) {
-                Player scorer = goal.getScorer();
-                int minute = goal.getMinute();
-                System.out.println(scorer.getName() + " scored in minute " + minute);
-            }
-
-            System.out.println();
-        }
-
-
-
-    }
-
     public  List<Match> matchTeams() {
         return this.teams.stream()
                 .flatMap(homeTeam ->
@@ -116,8 +91,77 @@ public class LeagueManager {
     }
 
 
-    public Match play() {
-        return null;
+    public  boolean playGame (Random random, Scanner scanner) {
+        if (this.matches.isEmpty()) {
+            return true; // Game over condition
+        }
+
+        List<Match> newMatches = IntStream.range(0, 5)
+                .mapToObj(i -> random.nextInt(this.matches.size()))
+                .distinct()
+                .map(this.matches::get)
+                .collect(Collectors.toList());
+
+        this.matches = this.matches.stream()
+                .filter(match -> !newMatches.contains(match))
+                .collect(Collectors.toList());
+
+        startGame(newMatches);
+        createLeagueTable();
+        System.out.println("1\n2\n3\n4\n5\n6");
+        getInputInRange(scanner, 1, 6);
+
+        return playGame(random, scanner);
+    }
+
+
+
+    public void startGame(List<Match> matches){
+        Random random = new Random();
+        int counter = 5;
+        for (Match match : matches) {
+            System.out.println("Round number: "+counter);
+            counter--;
+            System.out.println("Match between " + match.getHomeTeam().getName() + " and " + match.getAwayTeam().getName());
+            IntStream.iterate(10, i -> i - 1)
+                    .limit(10)
+                    .forEach(num -> {
+                        System.out.println(num);
+                        Utils.sleep(1000);
+                    });
+            int homeTeamScore = random.nextInt(4);
+            int awayTeamScore = random.nextInt(4);
+            match.setGoals(homeTeamScore, awayTeamScore);
+            System.out.println("Match result: " + match.getHomeTeam().getName() + " " + homeTeamScore + " - " + awayTeamScore + " " + match.getAwayTeam().getName());
+            System.out.println("Goals:");
+
+            for (Goal goal : match.getGoals()) {
+                Player scorer = goal.getScorer();
+                int minute = goal.getMinute();
+                System.out.println(scorer.getName() + " scored in minute " + minute);
+            }
+
+            System.out.println();
+        }
+
+    }
+
+
+
+
+
+
+    public int getInputInRange(Scanner scanner, int min, int max) {
+        return IntStream.generate(() -> {
+                    System.out.println("Enter a number 1-6:");
+                    return scanner.nextInt();
+                })
+                .filter(choice -> choice >= min && choice <= max)
+                .findFirst()
+                .orElseGet(() -> {
+                    System.out.println("Invalid number");
+                    return getInputInRange(scanner, min, max);
+                });
     }
 
 }
