@@ -45,7 +45,7 @@ public class Goal {
     public String toString() {
         return "Goal{" +
                 "id=" + id +
-                ", minute=" + minute +
+                ", minute=" + minute + ":90"+
                 ", scorer=" + scorer +
                 '}';
     }
