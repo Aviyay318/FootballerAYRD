@@ -3,6 +3,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Team  {
     private int id;
@@ -19,9 +20,13 @@ public class Team  {
     public Team(String name) {
         setTeamId();
         this.name = name;
-        this.players = Utils.createPlayers();
+        this.players = createPlayers();
         drawImage();
     }
+    public  List<Player> createPlayers() {
+        return Stream.generate((Player::new)).limit(15).toList();
+    }
+
 
     private void drawImage() {
        try {

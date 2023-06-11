@@ -19,14 +19,7 @@ public class Utils {
         }
         return teams;
     }
-    public static List<Team> createTeam(){
-        List<String> teamsNames= readFile();
-        return teamsNames.stream().map(Team::new).toList();
-    }
 
-    public static List<Player> createPlayers() {
-       return Stream.generate((Player::new)).limit(15).toList();
-    }
 
 
     public static void sleep(int sleep){

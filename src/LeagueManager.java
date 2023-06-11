@@ -12,12 +12,17 @@ public class LeagueManager {
     private List<Team> leagueTable;
 
     public LeagueManager() {
-        this.teams = Utils.createTeam();
+        this.teams = createTeam();
         this.matches = matchTeams();
         this.leagueTable = new ArrayList<>();
         //startGame();
 
     }
+    public  List<Team> createTeam(){
+        List<String> teamsNames= Utils.readFile();
+        return teamsNames.stream().map(Team::new).toList();
+    }
+
    private void createLeagueTable(){
        this.leagueTable=findTopScoringTeams(this.teams.size());
    }
