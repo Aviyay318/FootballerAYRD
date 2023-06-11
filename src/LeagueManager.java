@@ -14,18 +14,10 @@ public class LeagueManager {
     public LeagueManager() {
         this.teams = Utils.createTeam();
         this.matches = matchTeams();
+        this.leagueTable = new ArrayList<>();
         //startGame();
 
     }
-
-
-
-
-
-
-
-
-
    private void createLeagueTable(){
        System.out.println(findTopScoringTeams(this.teams.size()));
    }
@@ -108,12 +100,50 @@ public class LeagueManager {
 
         startGame(newMatches);
         createLeagueTable();
-        System.out.println("1\n2\n3\n4\n5\n6");
-        getInputInRange(scanner, 1, 6);
-
+        System.out.println(Constants.MENU);;
+        System.out.println("Choose an option: ");
+        int choice = getInputInRange(scanner, 1, 6);
+        outcome(choice);
         return playGame(random, scanner);
     }
 
+    private void outcome(int choice) {
+        Scanner scanner = new Scanner(System.in);
+        int userChoice;
+        boolean endMenu =false;
+       while (!endMenu){
+           switch (getInputInRange(scanner,1,6)){
+               case 1->{
+                   System.out.println("enter an id of team you want");
+                   userChoice = scanner.nextInt();
+                   System.out.println(findMatchesByTeam(userChoice));
+               }
+               case 2->{
+                   System.out.println("enter how much team you want: ");
+                   userChoice = scanner.nextInt();
+                   System.out.println(findTopScoringTeams(userChoice));
+               }
+               case 3->{
+                   System.out.println("enter how much goals you want: ");
+                   userChoice = scanner.nextInt();
+                   System.out.println(findPlayersWithAtLeastNGoals(userChoice));
+               }
+               case 4->{
+                   System.out.println("enter position of team you want: ");
+                   userChoice = scanner.nextInt();
+                   System.out.println(getTeamByPosition(userChoice));
+               }
+               case 5->{
+                   System.out.println("enter position of scorers you want: ");
+                   userChoice = scanner.nextInt();
+                   System.out.println(getTopScorers(userChoice));
+               }
+               case 6->{
+                   endMenu=true;
+               }
+           }
+       }
+    }
 
 
     public void startGame(List<Match> matches){
